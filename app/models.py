@@ -1,5 +1,5 @@
 from . import db
-
+import unicodedata
 
 # Requires client-side validation
 
@@ -11,23 +11,23 @@ class Property(db.Model):
     rooms = db.Column("rooms",db.String(3))
     bathroom = db.Column("bathroom",db.String(3)) 
     price = db.Column("price",db.String(12)) 
-    property_type = db.Column("property_type",db.String(9))
-    location = db.Column("location",db.String(80))
-    photo_name = db.Column("photoname",db.String(80))
+    type = db.Column("prop_type",db.String(9))
+    location = db.Column("prop_loc",db.String(80))
+    photoname = db.Column("photoname",db.String(80))
 
-    def __init__(self, title, description, rooms, bathrooms, price, propertyType, location, photo_name):
+    def __init__(self, title, description, rooms, bathrooms, price, type, location, photo_name):
         self.title = title
         self.description = description
         self.rooms = rooms
         self.bathrooms = bathrooms
         self.price = price
-        self.property_type = propertyType
+        self.type = type
         self.location = location
-        self.photo_name = photo_name
+        self.photoname = photo_name
 
     def get_id(self):
         try:
-            return unicode(self.id)  # python 2 support
+            return unicodedata(self.id)  # python 2 support
         except NameError:
             return str(self.id)  # python 3 support
 

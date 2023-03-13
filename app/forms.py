@@ -5,10 +5,10 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 class PropertyForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    bedrooms = StringField('Number of Bedrooms', validators=[InputRequired()])
+    rooms = StringField('Number of Bedrooms', validators=[InputRequired()])
     bathrooms = StringField('Number of Bathrooms', validators=[InputRequired()])
     location = StringField('Location', validators=[DataRequired()])
     price = StringField('Price', validators=[InputRequired()])
     type = SelectField('Type', choices=[('House', 'House'), ('Apartment', 'Apartment')], validators=[InputRequired()])
     description = TextAreaField('Description')
-    photo = FileField('Photo', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
+    photoname = FileField('Photo', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])

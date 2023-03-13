@@ -13,7 +13,7 @@ from .forms import PropertyForm
 from app.models import Property
 from flask.helpers import send_from_directory
 
-app.config['UPLOAD_FOLDER'] = '/path/to/uploads'
+
 
 ###
 # Routing for your application.
@@ -35,10 +35,19 @@ def add_property():
     form = PropertyForm()
     if form.validate_on_submit():
         # Save the file to disk
-        filename = secure_filename(form.photo.data.filename)
-        form.photo.data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # Save the property to the database
-        property = Property(title=form.title.data, bedrooms=form.bedrooms.data, bathrooms=form.bathrooms.data, location=form.location.data, price=form.price.data, type=form.type.data, description=form.description.data, photo_name=filename)
+         # Extract form data
+        title = form.title.data
+        description = form.description.data
+        rooms = form.rooms.data
+        bathrooms = form.bathrooms.data
+        price = form.price.data
+        propertyType = form.type.data
+        location = form.location.data
+        photo = form.photoname.data
+        photo_name = secure_filename(photo.filename)
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_name)) 
+        '''Add new property to db and commit'''
+        property = Property(title, description, rooms, bathrooms, price, propertyType, location, photo_name)
         db.session.add(property)
         db.session.commit()
         flash('Property added successfully.','success')
@@ -50,15 +59,15 @@ def properties():
     properties = Property.query.all()
     return render_template('properties.html', properties=properties)
 
-@app.route('/properties/<int:property_id>')
-def property_details(property_id):
-    property = Property.query.get(property_id)
+@app.route('/properties/<pid>')
+def property_details(pid):
+    property = Property.query.get(pid)
     return render_template('property_details.html', property=property)
 
-@app.route('/properties/<filename>')
-def getImage(filename):
+@app.route('/properties/<photo_name>')
+def getImage(photo_name):
     root_dir = os.getcwd()
-    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']),filename)
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), photo_name)
 ###
 # The functions below should be applicable to all Flask apps.
 ###
