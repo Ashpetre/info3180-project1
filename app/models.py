@@ -5,7 +5,7 @@ import unicodedata
 
 class Property(db.Model):
     __tablename__ = 'property'
-    pid = db.Column(db.Integer, primary_key=True)
+    pid = db.Column(db.Integer, primary_key=True,autoincrement=True)
     title = db.Column("title",db.String(80))
     description = db.Column("description",db.String(800))
     rooms = db.Column("rooms",db.String(3))
@@ -15,7 +15,7 @@ class Property(db.Model):
     location = db.Column("prop_loc",db.String(80))
     photoname = db.Column("photoname",db.String(80))
 
-    def __init__(self, title, description, rooms, bathrooms, price, type, location, photo_name):
+    def __init__(self, title, description, rooms, bathrooms, price, type, location, photoname):
         self.title = title
         self.description = description
         self.rooms = rooms
@@ -23,7 +23,7 @@ class Property(db.Model):
         self.price = price
         self.type = type
         self.location = location
-        self.photoname = photo_name
+        self.photoname = photoname
 
     def get_id(self):
         try:

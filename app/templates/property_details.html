@@ -2,7 +2,8 @@
 
 {% block main %}
 <div class="property">
-    <img src="{{ url_for('static', filename=property.photoname) }}" alt="Property Photo">
+    <img src="{{ url_for('getImage', photoname=property.photoname) }}" alt="Property Photo">
+    <div class = "property-info">
     <h2>{{ property.title }}</h2>
     <p>{{ property.location }}</p>
     <p>Price: ${{ property.price }}</p>
@@ -10,8 +11,11 @@
     <p>Bedrooms: {{ property.rooms }}</p>
     <p>Bathrooms: {{ property.bathroom }}</p>
     <p>Description: {{ property.description }}</p>
+    </div>
+    <div class="property-email">
+        <button class="btn">Email Realtor</button>
+    </div>
     
-    <button class="btn">Email Realtor</button>
     
 </div>
 {% endblock %}

@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 {% block main %}
+<div class="properties-container"></div>
 {% for property in properties %}
     <div class="property">
-        <img src="{{ url_for('static', filename=property.photoname) }}" alt="Property Photo">
+        <div class="property-card">
+            <img src="{{ url_for('getImage', photoname=property.photoname) }}" alt="Property Image">
+        </div>
+        <div class="property-info">
         <h2>{{ property.title }}</h2>
-        <p>{{ property.location }}</p>
-        <p>Price: ${{ property.price }}</p>
-        <a href="{{ url_for('property_details', pid=property.pid) }}" class="btn">View Details</a>
+        <i class="fa fa-map-marker"></i> {{ property.prop_loc }}
+        <div class="property-price">
+            ${{ property.price }}
+          </div>
+        <div class="property-details">
+            <a href="{{ url_for('property_details', pid=property.pid) }}">View Property</a>
+          </div>
+        </div>
     </div>
 {% endfor %}
 {% endblock %}
