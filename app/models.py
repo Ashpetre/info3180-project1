@@ -15,11 +15,11 @@ class Property(db.Model):
     location = db.Column("prop_loc",db.String(80))
     photoname = db.Column("photoname",db.String(80))
 
-    def __init__(self, title, description, rooms, bathrooms, price, type, location, photoname):
+    def __init__(self, title, description, rooms, bathroom, price, type, location, photoname):
         self.title = title
         self.description = description
         self.rooms = rooms
-        self.bathrooms = bathrooms
+        self.bathroom = bathroom
         self.price = price
         self.type = type
         self.location = location
